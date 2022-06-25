@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Expenses from "./Components/Expenses/Expenses"
+import NewExpense from "./Components/NewExpense/NewExpense"
+
+const dummyData = [
+  {
+    id: "exp1",
+    date: new Date(2021, 4, 23),
+    item: "New TV",
+    price: 599.25,
+  },
+  {
+    id: "exp2",
+    date: new Date(2021, 3, 16),
+    item: "Car Insuranse",
+    price: 295.62,
+  },
+  {
+    id: "exp3",
+    date: new Date(2021, 2, 18),
+    item: "New Desk (Wooden)",
+    price: 450.38,
+  },
+  {
+    id: "exp4",
+    date: new Date(2022, 5, 18),
+    item: "New Laptop",
+    price: 250.38,
+  },
+];
 
 function App() {
+  const [expenseData, setExpenseData] = useState(dummyData);
+
+  const getNewExpenseRecord = (data) => {
+    console.log("printed from app.js");
+    console.log(data);
+
+    setExpenseData((prev) => [data, ...prev]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NewExpense readExpenseData={getNewExpenseRecord} />
+      <Expenses expenseData={expenseData} />
     </div>
   );
 }
